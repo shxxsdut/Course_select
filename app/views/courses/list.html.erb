@@ -1,0 +1,112 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-2">
+      <%= render "shared/sidenav" %>
+
+    </div>
+
+
+    <div class="col-sm-10">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">选修课程</h3>
+        </div>
+
+        <form action="courses/searchcourse">
+
+          <div class="form-group" style="float:left;margin:5px 10px 20px 40px;">
+            <label for="name" style="padding-top: 25px;">课程名称</label>
+            <input type="text" name="select_course_name" placeholder="请输入正确的课程名称" class="form-control" , style="width:165px;display:initial; height: 31px;">
+
+            </input>
+          </div>
+
+          <div class="form-group" style="float:left;margin:5px 10px 20px 40px;">
+            <label for="name" style="padding-top: 25px;">课时/学分</label>
+            <select name="select_credit" class="form-control" , style="width: 90px;display:initial; height: 31px;">
+              <option selected="selected"></option>
+              <option>60/3.0</option>
+              <option>40/2.0</option>
+              <option>40/1.0</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="float:left;margin:5px 10px 20px 40px">
+            <label for="name" style="padding-top: 25px;">课程属性</label>
+            <select name="select_course_type" class="form-control" , style="width:138px;display: initial;height: 35px;">
+              <option selected="selected"></option>
+              <option>专业核心课</option>
+              <option>一级学科核心课</option>
+              <option>专业普及课</option>
+              <option>公共选修课</option>
+            </select>
+          </div>
+
+
+          <div class="form-group" style="float:left;margin:5px 10px 20px 40px">
+            <label for="name" style="padding-top: 25px;">考试方式</label>
+            <select name="select_exam_type" class="form-control" , style="width: 93px; display: initial;height: 35px;">
+              <option selected="selected"></option>
+              <option>课堂开卷</option>
+              <option>闭卷笔试</option>
+              <option>读书报告</option>
+            </select>
+          </div>
+          <div class="form-group" style="float: right;   margin: -52px 10px 20px 30px;width: 92px;">
+            <input type="submit" value="查询">
+          </div>
+
+        </form>
+
+        <div class="panel-body" style="min-height: 450px">
+          <table class="table table-striped table-hover">
+            <thead>
+            <tr></tr>
+            <tr>
+              <th>课程编号</th>
+              <th>课程名称</th>
+              <th>课时/学分</th>
+              <th>限选</th>
+              <th>已选</th>
+              <th>课程属性</th>
+              <th>授课方式</th>
+              <th>考试方式</th>
+              <th>主讲教师</th>
+              <th>是否设为学位课</th>  <!--新增-->
+
+            </tr>
+            </thead>
+            <tbody>
+
+            <% @course.each do |course| %>
+                <tr>
+
+                  <td><%= course.course_code %></td>
+                  <td><%= link_to course.name,coursedetails_course_path(course) %></td>
+                  <td><%= course.credit %></td>
+                  <td><%= course.limit_num %></td>
+                  <td><%= course.student_num %></td>
+                  <td><%= course.course_type %></td>
+                  <td><%= course.teaching_type %></td>
+                  <td><%= course.exam_type %></td>
+                  <td><%= course.teacher.name %></td>
+                  <% if course.course_degree == true %>
+                    <td>是</td>
+                  <% else %>
+                    <td>否</td>
+                  <% end %>
+                  <td><%= link_to "选择", select_course_path(course), class: 'btn-sm btn-success' ,data: { confirm: '确定要选择此课程?' }%></td>
+
+                </tr>
+
+            <% end %>
+            </tbody>
+          </table>
+          <%= will_paginate @courses %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
