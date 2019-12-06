@@ -74,12 +74,57 @@ class CoursesController < ApplicationController
   end
 
   #----------学生选择课程-----------
+  # def select
+  #   @course=Course.find_by_id(params[:id])
+  #   current_user.courses<<@course
+  #   flash={:suceess => "成功选择课程: #{@course.name}"}
+  #   redirect_to courses_path, flash: flash
+  # end
+  #添加选课冲突，控制选课人数
   def select
     @course=Course.find_by_id(params[:id])
-    current_user.courses<<@course
-    flash={:suceess => "成功选择课程: #{@course.name}"}
+    flag=0
+
+    current_user.courses.each do |courses|
+      #课程重复选择
+      if courses.name == @course.name
+        flag = 1
+      end
+      #选课时间冲突
+      if courses.course_time == @course.course_time
+        flag = 2
+      end
+      #选课人数限制
+      if @course.limit_num != nil
+        puts @course.limit_num;
+        puts "%%%%%%%%%%";
+        puts @course.student_num;
+        puts "************";
+        if @course.limit_num <= @course.student_num
+          flag = 3
+        end
+      end
+    end
+    #未产生选课的冲突
+    if flag == 0
+      current_user.courses<<@course
+      @course.student_num += 1
+      @course.save
+
+      flash={:suceess => "成功选择课程: #{@course.name}"}
+    end
+    if flag ==1
+      flash = {:fail => "课程名称冲突,你已经选择该课程：#{@course.name},"}
+    end
+    if flag == 2
+      flash = {:notice => "该课程与其他课程时间冲突：#{@course.name}"}
+    end
+    if flag == 3
+      flash = {:alert => "该课程选课人数达到上限：#{@course.name}"}
+    end
     redirect_to courses_path, flash: flash
   end
+
 
   #--------------学生退选课程------------------
   def quit
@@ -251,8 +296,8 @@ class CoursesController < ApplicationController
   #-------------------------for both teachers and students----------------------
 
   def index
-    @course=current_user.teaching_courses.paginate(page: params[:page], per_page: 4) if teacher_logged_in?
-    @course=current_user.courses.paginate(page: params[:page], per_page: 4) if student_logged_in?
+    @course=current_user.teaching_courses.paginate(page: params[:page], per_page: 7) if teacher_logged_in?
+    @course=current_user.courses.paginate(page: params[:page], per_page: 7) if student_logged_in?
   end
 
 

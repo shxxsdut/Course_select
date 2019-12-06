@@ -49,6 +49,34 @@ class GradesController < ApplicationController
   end
 
 
+
+#************导出*******
+  def export
+    if teacher_logged_in?
+      @course=Course.find_by_id(params[:course_id])
+      @grades=@course.grades
+    else
+      redirect_to root_path, flash: {:warning=>"请先登陆"}
+    end
+
+    respond_to do |format|
+      format.html
+      format.xls {
+        require 'spreadsheet'
+        book = Spreadsheet::Workbook.new
+        sheet1 = book.create_worksheet
+        sheet1.row(0).concat %w{成绩id 学号 姓名 专业 成绩}
+        @grades.each_with_index do |grade,i|
+          sheet1.row(i+1).push grade.id, grade.user.num, grade.user.name, grade.user.major, grade.grade
+        end
+        book.write 'grade.xls'
+        send_file 'grade.xls',:type => "application/vnd.ms-excel", :filename => "#{@course.name}.xls", :stream => false
+        return
+      }
+    end
+  end
+
+
   private
 
   # Confirms a teacher logged-in user.

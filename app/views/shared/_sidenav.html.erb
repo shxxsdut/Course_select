@@ -1,5 +1,48 @@
 <div class="panel-group" id="accordion">
 
+  <!--个人信息管理-->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <% if teacher_logged_in? %>
+          <a data-toggle="collapse" data-parent="#accordion" href="#UserCollapse">
+            <span class="glyphicon glyphicon-user"></span>
+            个人信息管理
+          </a>
+        <% end %>
+
+        <% if student_logged_in? %>
+          <a data-toggle="collapse" data-parent="#accordion" href="#UserCollapse">
+            <span class="glyphicon glyphicon-user"></span>
+            个人信息管理
+          </a>
+        <% end %>
+      </h4>
+    </div>
+    <div id="UserCollapse" class="panel-collapse collapse <%= "in" if ["users"].include?(params[:controller]) %>">
+      <div class="list-group">
+
+        <% if teacher_logged_in? %>
+          <li class="list-group-item">
+            <%= link_to edit_user_path(current_user) do %>个人信息管理
+              <span class="glyphicon glyphicon-user"></span>
+            <% end %>
+          </li>
+        <% end %>
+
+        <% if student_logged_in? %>
+          <li class="list-group-item">
+            <%= link_to edit_user_path(current_user) do %>个人信息管理
+              <span class="glyphicon glyphicon-user"></span>
+            <% end %>
+          </li>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+
+
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">

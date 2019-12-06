@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -42,6 +43,8 @@ Rails.application.routes.draw do
   get 'grades/degree' => 'grades#degree' #学位
   get 'grades/degree1' =>'grades#degree1'
   get 'grades/degree0' =>'grades#degree0'
+  get 'grades/export' =>'grades#export'
+
 
   get 'sessions/login' => 'sessions#new'  #控制器+方法
   post 'sessions/login' => 'sessions#create'
