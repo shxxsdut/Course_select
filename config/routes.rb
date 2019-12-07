@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   get 'grades/degree1' =>'grades#degree1'
   get 'grades/degree0' =>'grades#degree0'
   get 'grades/export' =>'grades#export'
+  post 'grades/import' =>'grades#import'
 
 
   get 'sessions/login' => 'sessions#new'  #控制器+方法
