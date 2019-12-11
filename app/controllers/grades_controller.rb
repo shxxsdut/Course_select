@@ -37,12 +37,12 @@ class GradesController < ApplicationController
     end
   end
 
-  def degree1
+  def change_to_degree
     @grade=Grade.find_by_id(params[:id])
     @grade.update_attributes(:degree=>true)
     redirect_to grades_degree_path, flash: {:success => "已经成功设置#{ @grade.course.name}为学位课！"}
   end
-  def degree0
+  def change_to_notdegree
     @grade=Grade.find_by_id(params[:id])
     @grade.update_attributes(:degree=>false)
     redirect_to grades_degree_path, flash: {:success => "已经成功设置#{ @grade.course.name}为非学位课！"}

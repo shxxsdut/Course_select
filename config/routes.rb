@@ -41,8 +41,8 @@ Rails.application.routes.draw do
 
   #Sessions资源使用具名路由 处理 GET POST DELETE请求  添加一个资源，获得会话标准REST动作
   get 'grades/degree' => 'grades#degree' #学位
-  get 'grades/degree1' =>'grades#degree1'
-  get 'grades/degree0' =>'grades#degree0'
+  get 'grades/change_to_degree' =>'grades#change_to_degree'
+  get 'grades/change_to_notdegree' =>'grades#change_to_notdegree'
   get 'grades/export' =>'grades#export'
   post 'grades/import' =>'grades#import'
 

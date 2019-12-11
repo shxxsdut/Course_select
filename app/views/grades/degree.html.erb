@@ -19,7 +19,10 @@
               <th>课程名</th>
               <th>学时学分</th>
               <th>授课老师</th>
+              <th>课程属性</th>
+              <th>上课时间</th>
               <th>学位课</th>
+
             </tr>
             </thead>
             <tbody>
@@ -29,6 +32,8 @@
                   <td><%= grade.course.name %></td>
                   <td><%= grade.course.credit %></td>
                   <td><%= grade.course.teacher.name %></td>
+                  <td><%= grade.course.course_type %></td>
+                  <td><%= grade.course.course_time %></td>
                   <%if  grade.degree == true%>
                   <td>是</td>
                   <%else%>
@@ -36,9 +41,9 @@
                   <%end%>
                   <%@grade=grade%>
                       <% if grade.degree? %>
-                          <td><%= link_to "设为非学位课", grades_degree0_path(id:@grade.id), class: 'btn btn-xs btn-info' %></td>
+                          <td><%= link_to "设为非学位课", grades_change_to_notdegree_path(id:@grade.id), class: 'btn btn-xs btn-success' %></td>
                       <% else %>
-                          <td><%= link_to "设为学位课", grades_degree1_path(id:@grade.id), class: 'btn btn-xs btn-info' %></td>
+                          <td><%= link_to "设为学位课", grades_change_to_degree_path(id:@grade.id), class: 'btn btn-xs btn-success' %></td>
                       <% end %>
                 </tr>
             <% end %>

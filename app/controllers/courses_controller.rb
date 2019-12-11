@@ -162,6 +162,10 @@ class CoursesController < ApplicationController
     @courses.each do |course|
       @credit = course.credit[3..5]
 
+      if course.name == "学术道德与学术写作规范"
+        @public_must_credit = @public_must_credit + course.name+"("+@credit + "学分"+")"+"\n"
+      end
+
       if course.name == "中国特色社会主义理论与实践研究"
         @public_must_credit = @public_must_credit + course.name+"("+@credit + "学分"+")"+"\n"
       end
