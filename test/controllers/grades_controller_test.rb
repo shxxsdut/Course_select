@@ -4,4 +4,13 @@ class GradesControllerTest < ActionController::TestCase
   # test "the truth" do
   #   assert true
   # end
+
+  test "should get index" do
+    get :index
+  end
+
+  test "shoule get update" do
+    get :update,{'id'=>'1'}
+  end
+
 end
