@@ -27,10 +27,7 @@ class GradesController < ApplicationController
 
   #**************学位课*********************
   def degree
-    if teacher_logged_in?
-      @course=Course.find_by_id(params[:course_id])
-      @grades=@course.grades
-    elsif student_logged_in?
+    if student_logged_in?
       @grades=current_user.grades
     else
       redirect_to root_path, flash: {:warning=>"请先登陆"}

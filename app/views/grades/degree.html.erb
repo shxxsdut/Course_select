@@ -2,19 +2,16 @@
   <div class="row">
     <div class="col-sm-2">
       <%= render "shared/sidenav" %>
-
     </div>
     <div class="col-sm-10">
       <div class="panel panel-primary">
         <div class="panel-heading">
           <% user_credit=0%>
-          <% if teacher_logged_in? %><h3 class="panel-title">学位课管理: <%=@course.name%></h3><% end %>
           <% if student_logged_in? %><h3 class="panel-title">学位课管理</h3><% end %>
         </div>
         <div class="panel-body" style="min-height: 450px">
           <table class="table table-striped table-hover">
             <thead>
-
             <tr>
               <th>课程名</th>
               <th>学时学分</th>
@@ -22,11 +19,9 @@
               <th>课程属性</th>
               <th>上课时间</th>
               <th>学位课</th>
-
             </tr>
             </thead>
             <tbody>
-
             <% @grades.each do |grade| %>
                 <tr>
                   <td><%= grade.course.name %></td>
@@ -34,17 +29,17 @@
                   <td><%= grade.course.teacher.name %></td>
                   <td><%= grade.course.course_type %></td>
                   <td><%= grade.course.course_time %></td>
-                  <%if  grade.degree == true%>
-                  <td>是</td>
+                  <%if grade.degree == true%>
+                      <td>是</td>
                   <%else%>
-                  <td>否</td>
+                      <td>否</td>
                   <%end%>
                   <%@grade=grade%>
-                      <% if grade.degree? %>
-                          <td><%= link_to "设为非学位课", grades_change_to_notdegree_path(id:@grade.id), class: 'btn btn-xs btn-success' %></td>
-                      <% else %>
-                          <td><%= link_to "设为学位课", grades_change_to_degree_path(id:@grade.id), class: 'btn btn-xs btn-success' %></td>
-                      <% end %>
+                  <% if grade.degree? %>
+                      <td><%= link_to "设为非学位课", grades_change_to_notdegree_path(id:@grade.id), class: 'btn btn-xs btn-success' %></td>
+                  <% else %>
+                      <td><%= link_to "设为学位课", grades_change_to_degree_path(id:@grade.id), class: 'btn btn-xs btn-success' %></td>
+                  <% end %>
                 </tr>
             <% end %>
             </tbody>

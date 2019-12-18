@@ -142,10 +142,6 @@ class CoursesController < ApplicationController
   #-----新增-----显示课程详细信息--------------
   def coursedetails
     @course=Course.find_by_id(params[:id])
-    if current_user.nil?
-    else
-      @grade=Grade.where(:course_id => params[:id],:user_id=>current_user.id).first
-    end
   end
 #-----------显示当前学分------------
   def credit

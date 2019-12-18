@@ -48,7 +48,7 @@ html {
 
 img{
   width: -moz-available;
-  height: 472px;
+  height: 85vh;
 }
 .import{
   margin-left: 250px;
@@ -60,6 +60,11 @@ img{
   margin-top: -54px;
 }
 
+body.rails_admin .navbar .edit_user_root_link img {
+  top: 12px;
+  height: 29px;
+  width: auto;
+}
 
 
 
