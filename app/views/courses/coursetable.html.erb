@@ -10,12 +10,12 @@
       <div class="panel panel-primary filterable">
         <div class="panel-heading">
           <% if student_logged_in? %>
-            <h3 class="panel-title">我的课表</h3>
+              <h3 class="panel-title">我的课表</h3>
           <% end %>
         </div>
 
         <div class="panel-body">
-          <table class="table table-responsive table-condensed table-hover">
+          <table  class="table table-responsive table-condensed table-hover">
             <thead>
             <tr style="font-size:16px;" >
               <th></th>
@@ -30,57 +30,79 @@
             </thead>
 
             <tbody style="font-size:14px;" >
-
             <% tmp = 1 %>
             <% while tmp < 13 do %>
-              <% if tmp == 5 %>
-                <tr>
-                  <td>&nbsp&nbsp&nbsp&nbsp&nbsp</td>
-                  <% for i in 1..7 %>
-                    <td>..........................</td>
-                  <% end %>
-                </tr>
-              <% end %>
-
-              <% if tmp == 9 %>
-                <tr>
-                  <td>&nbsp&nbsp&nbsp&nbsp&nbsp</td>
-                  <% for i in 1..7 %>
-                    <td>..........................</td>
-                  <% end %>
-                </tr>
-              <% end %>
-
-              <tr>
-                <td><%= tmp %></td>
-                <% tmp2 = ["周一","周二","周三","周四","周五","周六","周日"]%>
-                <% tmp3 = 0 %>
-                <% while tmp3 < 7 do %>
-                  <% tmp4 = 0 %>
-                  <% @course.each do |course| %>
-                    <% if course.course_time[0..1] == tmp2[tmp3]%>
-                      <% a = course.course_time[3].to_i %>
-                      <% if course.course_time.size == 7 %>
-                        <% b =  course.course_time[5].to_i  %>
-                      <% else %>
-                        <% b =  course.course_time[5..6].to_i %>
+                <% if tmp == 5 %>
+                    <tr>
+                      <td>&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+                      <% for i in 1..7 %>
+                          <td>..........................</td>
                       <% end %>
-                      <% for i in a..b %>
-                        <% if i == tmp %>
-                          <td ><%= course.name%></td>
-                          <% tmp4 += 1 %>
-                        <% end %>
-                      <% end %>
-
-                    <% end %>
-                  <% end %>
-                  <% tmp3 += 1 %>
-                  <% if tmp4 == 0 %>
-                    <td></td>
-                  <% end %>
+                    </tr>
                 <% end %>
-              </tr>
-              <% tmp += 1 %>
+
+                <% if tmp == 9 %>
+                    <tr>
+                      <td>&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+                      <% for i in 1..7 %>
+                          <td>..........................</td>
+                      <% end %>
+                    </tr>
+                <% end %>
+
+                <tr>
+
+                  <% if tmp ==1 %>
+                      <td>8:30-09:20</td>
+                  <% elsif tmp ==2 %>
+                      <td>09:20-10:10</td>
+                  <% elsif tmp == 3 %>
+                      <td>10:30-11:20</td>
+                  <% elsif tmp ==4 %>
+                      <td>11:20-12:10</td>
+                  <% elsif tmp == 5 %>
+                      <td>13:30-14:20</td>
+                  <% elsif tmp ==6%>
+                      <td>14:20-15:10</td>
+                  <% elsif tmp == 7 %>
+                      <td>15:30-16:20</td>
+                  <% elsif tmp ==8 %>
+                      <td>16:20-17:10</td>
+                  <% elsif tmp == 9 %>
+                      <td>19:00-19:50</td>
+                  <% elsif tmp == 10 %>
+                      <td>19:50-20:40</td>
+                  <% elsif tmp == 11%>
+                      <td>20:50-21:40</td>
+                  <% end %>
+                  <% tmp2 = ["周一","周二","周三","周四","周五","周六","周日"]%>
+                  <% tmp3 = 0 %>
+                  <% while tmp3 < 7 do %>
+                      <% tmp4 = 0 %>
+                      <% @course.each do |course| %>
+                          <% if course.course_time[0..1] == tmp2[tmp3]%>
+                              <% a = course.course_time[3].to_i %>
+                              <% if course.course_time.size == 7 %>
+                                  <% b =  course.course_time[5].to_i  %>
+                              <% else %>
+                                  <% b =  course.course_time[5..6].to_i %>
+                              <% end %>
+                              <% for i in a..b %>
+                                  <% if i == tmp %>
+                                      <td ><%= course.name%><br/><%=course.teacher.name%>&nbsp<%=course.class_room%><br/><%=course.course_week%></td>
+                                      <% tmp4 += 1 %>
+                                  <% end %>
+                              <% end %>
+
+                          <% end %>
+                      <% end %>
+                      <% tmp3 += 1 %>
+                      <% if tmp4 == 0 %>
+                          <td></td>
+                      <% end %>
+                  <% end %>
+                </tr>
+                <% tmp += 1 %>
             <% end %>
 
             </tbody>

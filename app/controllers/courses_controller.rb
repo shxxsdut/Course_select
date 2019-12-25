@@ -68,9 +68,6 @@ class CoursesController < ApplicationController
       end
     end
     @course=tmp
-
-
-
   end
 
   #----------学生选择课程-----------
@@ -92,6 +89,10 @@ class CoursesController < ApplicationController
       end
       #选课时间冲突
       if courses.course_time == @course.course_time
+        puts courses.course_time + "@@@@@@@@@@@@"
+        #if courses.course_week.size == 5
+
+        #end
         flag = 2
       end
       #选课人数限制
